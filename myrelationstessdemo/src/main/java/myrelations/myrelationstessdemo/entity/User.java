@@ -1,7 +1,11 @@
 package myrelations.myrelationstessdemo.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import myrelations.myrelationstessdemo.model.Library;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -18,6 +22,12 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Library library;
+
+
     @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
     private List<Role> roles;
 
@@ -29,6 +39,8 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+
 
     public Long getId() {
         return id;
@@ -61,4 +73,11 @@ public class User {
         this.email = email;
     }
 
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
+    }
 }
