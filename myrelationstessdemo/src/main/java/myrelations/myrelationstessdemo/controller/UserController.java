@@ -47,18 +47,28 @@ public class UserController {
 
         user.setLibrary(optionalLibrary.get());
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(user); //ganti ke many to many
+        //User savedUser = userService.createUser(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedUser.getId()).toUri();
 
         return ResponseEntity.created(location).body(savedUser);
     }
 
+    //test metod ini
 
+    @PostMapping("/user/create")
+    public ResponseEntity<Object> createUser(@RequestBody @Valid  User user) {
+        return userService.createUser(user);
+    }
+
+    /*
     @PostMapping("/user/create")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
+
+     */
 
     @GetMapping("/user/details/{id}")
     public UserModel getUser(@PathVariable Long id) {
