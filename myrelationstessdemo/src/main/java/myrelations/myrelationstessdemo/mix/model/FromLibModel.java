@@ -1,15 +1,16 @@
-package myrelations.myrelationstessdemo.manytomany.model;
+package myrelations.myrelationstessdemo.mix.model;
+
+import myrelations.myrelationstessdemo.manytomany.model.RoleModel;
 
 import java.util.List;
 
-public class UserModel {
-
+public class FromLibModel {
     private String firstName;
     private String lastName;
     private String mobile;
     private String email;
 
-    private List<RoleModel> roles;
+    private List<GetFromModel> getFromModels;
 
     public String getFirstName() {
         return firstName;
@@ -35,14 +36,12 @@ public class UserModel {
     public void setEmail(String email) {
         this.email = email;
     }
-    public List<RoleModel> getRoles() {
-        return roles;
+
+    public List<GetFromModel> getGetFromModels() {
+        return getFromModels;
     }
 
-    public void setRoles(List<RoleModel> roles) {
-        this.roles = roles;
+    public void setGetFromModels(List<GetFromModel> getFromModels) {
+        this.getFromModels = getFromModels;
     }
-
-
-
-            }
+}
