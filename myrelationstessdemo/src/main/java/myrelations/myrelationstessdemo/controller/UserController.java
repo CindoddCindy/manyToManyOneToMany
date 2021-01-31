@@ -1,14 +1,20 @@
 package myrelations.myrelationstessdemo.controller;
 
 import myrelations.myrelationstessdemo.entity.User;
+import myrelations.myrelationstessdemo.model.Library;
 import myrelations.myrelationstessdemo.model.UserModel;
 import myrelations.myrelationstessdemo.repository.LibraryRepository;
 import myrelations.myrelationstessdemo.repository.UserRepository;
 import myrelations.myrelationstessdemo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -23,11 +29,31 @@ public class UserController {
     }
 
     //test mapping one to one
+    @Autowired
     public UserController(UserService userService, UserRepository userRepository, LibraryRepository libraryRepository){
         this.userService=userService;
         this.userRepository=userRepository;
         this.libraryRepository=libraryRepository;
     }
+
+    //tambah  metod mappng dengan library
+
+    @PostMapping
+    public ResponseEntity<User> create(@RequestBody @Valid User user) {
+        Optional<Library> optionalLibrary = libraryRepository.findById(user.getLibrary().getId());
+        if (!optionalLibrary.isPresent() ) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+        user.setLibrary(optionalLibrary.get());
+
+        User savedUser = userRepository.save(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedUser.getId()).toUri();
+
+        return ResponseEntity.created(location).body(savedUser);
+    }
+
 
     @PostMapping("/user/create")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
