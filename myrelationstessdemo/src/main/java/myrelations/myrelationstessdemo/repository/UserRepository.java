@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long>
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Book b WHERE b.library.id = ?1")
+    @Query("DELETE FROM User u WHERE u.library.id = ?1")
     void deleteByLibraryId(Long libraryId);
 
 
