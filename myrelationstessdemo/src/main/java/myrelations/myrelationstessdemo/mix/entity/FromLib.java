@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "fromLib")
+@Table(name = "from_lib")
 public class FromLib {
 
 
