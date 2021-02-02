@@ -1,6 +1,7 @@
 package myrelations.myrelationstessdemo.controller;
 
 import myrelations.myrelationstessdemo.entity.User;
+import myrelations.myrelationstessdemo.exception.ResourceNotFoundException;
 import myrelations.myrelationstessdemo.model.Library;
 import myrelations.myrelationstessdemo.model.UserModel;
 import myrelations.myrelationstessdemo.repository.LibraryRepository;
@@ -59,7 +60,7 @@ public class UserController {
     }
 
     //test metod ini
-
+/*
     @PostMapping("/user/creates")
     public ResponseEntity<Object> createsUser(@RequestBody @Valid  User user) {
         return userService.createUsers(user);
@@ -73,13 +74,14 @@ public class UserController {
 
      */
 
-    @PostMapping("/posts/{postId}/comments")
-    public Comment createComment(@PathVariable (value = "postId") Long postId,
-                                 @Valid @RequestBody Comment comment) {
-        return postRepository.findById(postId).map(post -> {
-            comment.setPost(post);
-            return commentRepository.save(comment);
-        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+
+    @PostMapping("/library/{libraryIdId}/user")// tes post pake metod ini
+    public User createUsers(@PathVariable (value = "libraryId") Long libraryId,
+                                 @Valid @RequestBody User user) {
+        return libraryRepository.findById(libraryId).map(library -> {
+            user.setLibrary(library);
+            return userRepository.save(user);
+        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + libraryId + " not found"));
     }
 
     @GetMapping("/user/details/{id}")
