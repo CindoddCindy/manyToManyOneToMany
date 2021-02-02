@@ -29,12 +29,15 @@ public class UserController {
     }
 
     //test mapping one to one
+    /*
     @Autowired
     public UserController(UserService userService, UserRepository userRepository, LibraryRepository libraryRepository){
         this.userService=userService;
         this.userRepository=userRepository;
         this.libraryRepository=libraryRepository;
     }
+
+     */
 
     //tambah  metod mappng dengan library
 
@@ -57,9 +60,9 @@ public class UserController {
 
     //test metod ini
 
-    @PostMapping("/user/create")
-    public ResponseEntity<Object> createUser(@RequestBody @Valid  User user) {
-        return userService.createUser(user);
+    @PostMapping("/user/creates")
+    public ResponseEntity<Object> createsUser(@RequestBody @Valid  User user) {
+        return userService.createUsers(user);
     }
 
     /*

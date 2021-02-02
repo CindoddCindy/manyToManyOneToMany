@@ -28,8 +28,11 @@ public class UserService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
+
+
     /** Create a new User */
     //ubah metodnya
+    /*
     public ResponseEntity<Object> createUser(User model) {
         //dari one to many
         User user = new User();
@@ -50,6 +53,7 @@ public class UserService {
          */
 
         //
+    /*
 
         else {
             user.setLibrary(optionalLibrary.get());
@@ -79,6 +83,28 @@ public class UserService {
         }
 
          */
+
+    public ResponseEntity<Object> createUsers(User model) {
+        User user = new User();
+        //Optional<User> optionalUser = userRepository.findById(model.getLibrary().getId());
+        if (userRepository.findByLibraryId(libraryRepository.findById())) {
+            return ResponseEntity.ok().body(" Create new User");
+        }
+
+        else {
+            user.setFirstName(model.getFirstName());
+            user.setLastName(model.getLastName());
+            user.setMobile(model.getMobile());
+            user.setEmail(model.getEmail());
+            user.setRoles(model.getRoles());
+
+            User savedUser = userRepository.save(user);
+            if (userRepository.findById(savedUser.getId()).isPresent())
+                return ResponseEntity.ok("User Created Successfully");
+            else return ResponseEntity.unprocessableEntity().body("Failed Creating User as Specified");
+        }
+    }
+
 
 
 
