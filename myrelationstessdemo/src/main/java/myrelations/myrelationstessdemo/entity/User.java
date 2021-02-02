@@ -1,8 +1,11 @@
 package myrelations.myrelationstessdemo.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import myrelations.myrelationstessdemo.model.Library;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,6 +34,19 @@ public class User {
     @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
     private List<Role> roles;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "library_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Library librarys;
+
+    public Library getLibrarys() {
+        return librarys;
+    }
+
+    public void setLibrarys(Library librarys) {
+        this.librarys = librarys;
+    }
 
     public List<Role> getRoles() {
         return roles;

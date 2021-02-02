@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long>
 {
 
-    Page<User> findByLibraryId(Long libraryId, Pageable pageable);
+   // Page<User> findByLibraryId(Long libraryId, Pageable pageable);
 
     @Modifying
     @Transactional
@@ -33,4 +33,7 @@ public interface UserRepository extends JpaRepository<User, Long>
     //User  findByUserId(@Param("id") Long id);
     @Query(value = "select * from t_user", nativeQuery = true)
     List<User> findAllByUserId();
+
+    Page<User> findByLibraryId(Long libraryId, Pageable pageable);
+    Optional<User> findByIdAndLibraryId(Long id, Long libraryId);
 }

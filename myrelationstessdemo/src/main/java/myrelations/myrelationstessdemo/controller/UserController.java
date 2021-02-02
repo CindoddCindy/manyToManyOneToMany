@@ -73,6 +73,15 @@ public class UserController {
 
      */
 
+    @PostMapping("/posts/{postId}/comments")
+    public Comment createComment(@PathVariable (value = "postId") Long postId,
+                                 @Valid @RequestBody Comment comment) {
+        return postRepository.findById(postId).map(post -> {
+            comment.setPost(post);
+            return commentRepository.save(comment);
+        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+    }
+
     @GetMapping("/user/details/{id}")
     public UserModel getUser(@PathVariable Long id) {
         return userService.getUser(id);
