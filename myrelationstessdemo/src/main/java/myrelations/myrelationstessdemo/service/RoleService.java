@@ -1,8 +1,7 @@
 package myrelations.myrelationstessdemo.service;
 
-
-import myrelations.myrelationstessdemo.entity.Role;
-import myrelations.myrelationstessdemo.entity.User;
+import myrelations.myrelationstessdemo.entitiy.Role;
+import myrelations.myrelationstessdemo.entitiy.User;
 import myrelations.myrelationstessdemo.repository.RoleRepository;
 import myrelations.myrelationstessdemo.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @Service
 public class RoleService {
-
     private RoleRepository roleRepository;
     private UserRepository userRepository;
 
@@ -73,6 +71,8 @@ public class RoleService {
 
         } else return ResponseEntity.unprocessableEntity().body("Specified Role not found");
     }
+
+
 
 
 

@@ -1,21 +1,16 @@
 package myrelations.myrelationstessdemo.service;
 
-import myrelations.myrelationstessdemo.entity.User;
-import myrelations.myrelationstessdemo.model.Library;
+import myrelations.myrelationstessdemo.entitiy.User;
 import myrelations.myrelationstessdemo.model.RoleModel;
 import myrelations.myrelationstessdemo.model.UserModel;
-import myrelations.myrelationstessdemo.repository.LibraryRepository;
 import myrelations.myrelationstessdemo.repository.RoleRepository;
 import myrelations.myrelationstessdemo.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -23,75 +18,16 @@ public class UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
-    private LibraryRepository libraryRepository;
     public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
-
-
     /** Create a new User */
-    //ubah metodnya
-    /*
     public ResponseEntity<Object> createUser(User model) {
-        //dari one to many
-        User user = new User();
-        Optional<Library> optionalLibrary = libraryRepository.findById(model.getLibrary().getId());
-        if (!optionalLibrary.isPresent() ) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
-
-
-        //
-        /*
-        book.setLibrary(optionalLibrary.get());
-
-        Book savedBook = bookRepository.save(book);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedBook.getId()).toUri();
-
-         */
-
-        //
-    /*
-
-        else {
-            user.setLibrary(optionalLibrary.get());
-
-            User saveUser = userRepository.save(user);
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(saveUser.getId()).toUri();
-
-
-           // user.setFirstName(model.getFirstName());
-               // user.setLastName(model.getLastName());
-                //user.setMobile(model.getMobile());
-                //user.setEmail(model.getEmail());
-                user.setRoles(model.getRoles());
-
-                User savedUser = userRepository.save(user);
-                if (userRepository.findById(savedUser.getId()).isPresent())
-                    //return ResponseEntity.ok("User Created Successfully");
-            return ResponseEntity.created(location).body(savedUser);
-                else return ResponseEntity.unprocessableEntity().body("Failed Creating User as Specified");
-            }
-        }
-        /*
         User user = new User();
         if (userRepository.findByEmail(model.getEmail()).isPresent()) {
-           // return ResponseEntity.badRequest().body("The Email is already Present, Failed to Create new User");
-        }
-
-         */
-/*
-    public ResponseEntity<Object> createUsers(User model) {
-        User user = new User();
-        //Optional<User> optionalUser = userRepository.findById(model.getLibrary().getId());
-        if (userRepository.findByLibraryId(libraryRepository.findById())) {
-            return ResponseEntity.ok().body(" Create new User");
-        }
-
-        else {
+            return ResponseEntity.badRequest().body("The Email is already Present, Failed to Create new User");
+        } else {
             user.setFirstName(model.getFirstName());
             user.setLastName(model.getLastName());
             user.setMobile(model.getMobile());
@@ -104,11 +40,6 @@ public class UserService {
             else return ResponseEntity.unprocessableEntity().body("Failed Creating User as Specified");
         }
     }
-
-
- */
-
-
 
     /** Update an Existing User */
     @Transactional

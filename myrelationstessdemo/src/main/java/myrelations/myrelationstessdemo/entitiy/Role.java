@@ -1,17 +1,12 @@
-package myrelations.myrelationstessdemo.entity;
-
-
+package myrelations.myrelationstessdemo.entitiy;
 
 import javax.persistence.*;
 import java.util.List;
 
 
-
 @Entity
 @Table(name = "t_role")
 public class Role {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

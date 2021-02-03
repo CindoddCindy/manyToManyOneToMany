@@ -1,7 +1,6 @@
 package myrelations.myrelationstessdemo.controller;
 
-
-import myrelations.myrelationstessdemo.entity.Role;
+import myrelations.myrelationstessdemo.entitiy.Role;
 import myrelations.myrelationstessdemo.repository.RoleRepository;
 import myrelations.myrelationstessdemo.service.RoleService;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import java.util.List;
 
 @RestController
 public class RoleController {
-
     private RoleService roleService;
     private RoleRepository roleRepository;
 
@@ -43,6 +41,8 @@ public class RoleController {
     public ResponseEntity<Object> updateRole(@PathVariable Long id, @RequestBody Role role) {
         return roleService.updateRole(id, role);
     }
+
+
 
 
 

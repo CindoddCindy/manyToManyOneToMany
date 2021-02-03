@@ -1,6 +1,7 @@
 package myrelations.myrelationstessdemo.repository;
 
-import myrelations.myrelationstessdemo.entity.Role;
+
+import myrelations.myrelationstessdemo.entitiy.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
