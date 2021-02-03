@@ -7,8 +7,11 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "like")
+@Table(name = "likes")
 public class Like extends AuditModel{
 
     @Id
@@ -25,10 +28,22 @@ public class Like extends AuditModel{
     @JsonIgnore
     private Post post;
 
-    public Like(@NotNull String text, Post post) {
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "like_tags",
+            joinColumns = { @JoinColumn(name = "like_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+    private Set<Tag> tags = new HashSet<>();
+
+
+    public Like(@NotNull String text) {
         this.text = text;
-        this.post = post;
-    }
+
+         }
 
     public Like() {
     }

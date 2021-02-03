@@ -30,7 +30,7 @@ public class LikeController {
         return likeRepository.findByPostId(postId, pageable);
     }
 
-    @PostMapping("/posts/{postId}/like")
+    @PostMapping("/posts/{postId}/likes")
     public Like createLike(@PathVariable (value = "postId") Long postId,
                                  @Valid @RequestBody Like like) {
         return postRepository.findById(postId).map(post -> {

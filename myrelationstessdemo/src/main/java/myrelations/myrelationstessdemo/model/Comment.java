@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "comments")
 public class Comment extends AuditModel  {
@@ -24,9 +27,20 @@ public class Comment extends AuditModel  {
     @JsonIgnore
     private Post post;
 
-    public Comment(@NotNull String text, Post post) {
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "comment_tags",
+            joinColumns = { @JoinColumn(name = "comment_id") },
+            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+    private Set<Tag> tags = new HashSet<>();
+
+
+    public Comment(@NotNull String text) {
         this.text = text;
-        this.post = post;
+
     }
 
     public Comment() {
